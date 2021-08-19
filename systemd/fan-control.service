@@ -1,0 +1,12 @@
+[Unit]
+Description=A jop to stop or start coller depends on core temperature
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/fan-control
+User=ubuntu
+StandardOutput=file:/home/ubuntu/logs/fan-control.log
+StandardInput=tty-force
+
+[Install]
+WantedBy=default.target

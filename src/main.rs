@@ -8,7 +8,6 @@ const OFF_THRESHOLD: f32 = 46.0;
 const ON_THRESHOLD: f32 = 50.0;
 
 fn main() -> Result<(), Box<dyn Error>> {
-
     // Get current Temperature in Celsius
     let temperature: f32 = fs::read_to_string(CORE_TEMP_FILE)?.trim().parse()?;
     let temperature = temperature / 1000.0;
@@ -17,7 +16,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut pin = Gpio::new()?.get(GPIO_FAN)?.into_output();
 
     // Do not restore pin state after executing
-    if pin.reset_on_drop() { pin.set_reset_on_drop(false) }
+    if pin.reset_on_drop() {
+        pin.set_reset_on_drop(false)
+    }
 
     // If current temperature is greater than ON_THRESHOLD and fan is turned off => Turn on fan
     // If current temperature is lesser than OFF_THRESHOLD and fan is turned on => Turn off fan
